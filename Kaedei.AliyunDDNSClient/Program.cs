@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using Aliyun.Api;
 using Aliyun.Api.DNS.DNS20150109.Request;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ namespace Kaedei.AliyunDDNSClient
 			var accessKeySecret = configs[1].Trim(); //Access Key Secret，如 ysHnd1dhWvoOmbdWKx04evlVEdXEW7 
 			var domainName = configs[2].Trim(); //域名，如 google.com
 			var rr = configs[3].Trim(); //子域名，如 www
+			Console.WriteLine("Updating {0} of domain {1}", rr, domainName);
 
 			var aliyunClient = new DefaultAliyunClient("http://dns.aliyuncs.com/", accessKeyId, accessKeySecret);
 			var req = new DescribeDomainRecordsRequest() {DomainName = domainName};
@@ -25,10 +27,12 @@ namespace Kaedei.AliyunDDNSClient
 			var updateRecord = response.DomainRecords.FirstOrDefault(rec => rec.RR == rr && rec.Type == "A");
 			if (updateRecord == null)
 				return;
+			Console.WriteLine("Domain record IP is " + updateRecord.Value);
 
 			//获取IP
 			var ipJson = new HttpClient().GetStringAsync("http://ip-api.com/json").Result;
 			var ip = JsonConvert.DeserializeObject<IpApiResponse>(ipJson).query;
+			Console.WriteLine("Current IP is " + ip);
 
 			if (updateRecord.Value != ip)
 			{
@@ -40,6 +44,11 @@ namespace Kaedei.AliyunDDNSClient
 				aliyunClient.Execute(changeValueRequest);
 				Console.WriteLine("Update finished.");
 			}
+			else
+			{
+				Console.WriteLine("IPs are same now. Exiting");
+			}
+			Thread.Sleep(5000);
 		}
 	}
 }

@@ -11,7 +11,10 @@
   2. 第二行：Access Id Secret，例如 *ysHnd1dhWvoOmbdWKx04evlVEdXEW7*
   3. 第三行：域名，例如 *google.com*
   4. 第四行：子域名，例如 *www*
-6. 运行主exe即可。
+6. 在服务器上运行主exe即可
 
 # 环境 
 使用VS2013 + .NET 4.5 + C#开发
+
+# 建议
+建议通过任务计划定时调用（如每两小时），程序会判断是否需要修改A记录
