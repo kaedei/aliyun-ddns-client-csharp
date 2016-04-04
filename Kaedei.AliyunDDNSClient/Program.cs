@@ -42,7 +42,9 @@ namespace Kaedei.AliyunDDNSClient
 					var changeValueRequest = new UpdateDomainRecordRequest()
 					{
 						RecordId = updateRecord.RecordId,
-						Value = ip
+						Value = ip,
+						Type = "A",
+						RR = rr
 					};
 					aliyunClient.Execute(changeValueRequest);
 					Console.WriteLine("Update finished.");
