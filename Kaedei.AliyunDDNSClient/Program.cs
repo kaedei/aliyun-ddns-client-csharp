@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Aliyun.Api;
@@ -33,7 +35,12 @@ namespace Kaedei.AliyunDDNSClient
 				Console.WriteLine("Domain record IP is " + updateRecord.Value);
 
 				//获取IP
-				var htmlSource = new HttpClient().GetStringAsync("http://www.ip.cn/").Result;
+				var httpClient = new HttpClient(new HttpClientHandler
+				{
+					AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.None,
+				});
+				httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("aliyun-ddns-client-csharp")));
+				var htmlSource = httpClient.GetStringAsync("http://www.ip.cn/").Result;
 				var ip = Regex.Match(htmlSource, @"(?<=<code>)[\d\.]+(?=</code>)", RegexOptions.IgnoreCase).Value;
 				Console.WriteLine("Current IP is " + ip);
 
