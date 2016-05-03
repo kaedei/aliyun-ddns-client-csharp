@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Aliyun.Api;
 using Aliyun.Api.DNS.DNS20150109.Request;
@@ -15,7 +16,6 @@ namespace Kaedei.AliyunDDNSClient
 		{
 			try
 			{
-
 				var configs = File.ReadAllLines("config.txt");
 				var accessKeyId = configs[0].Trim(); //Access Key ID，如 DR2DPjKmg4ww0e79
 				var accessKeySecret = configs[1].Trim(); //Access Key Secret，如 ysHnd1dhWvoOmbdWKx04evlVEdXEW7 
@@ -33,8 +33,8 @@ namespace Kaedei.AliyunDDNSClient
 				Console.WriteLine("Domain record IP is " + updateRecord.Value);
 
 				//获取IP
-				var ipJson = new HttpClient().GetStringAsync("http://ip-api.com/json").Result;
-				var ip = JsonConvert.DeserializeObject<IpApiResponse>(ipJson).query;
+				var htmlSource = new HttpClient().GetStringAsync("http://www.ip.cn/").Result;
+				var ip = Regex.Match(htmlSource, @"(?<=<code>)[\d\.]+(?=</code>)", RegexOptions.IgnoreCase).Value;
 				Console.WriteLine("Current IP is " + ip);
 
 				if (updateRecord.Value != ip)
