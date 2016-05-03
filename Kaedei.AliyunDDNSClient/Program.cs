@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Aliyun.Api;
 using Aliyun.Api.DNS.DNS20150109.Request;
-using Newtonsoft.Json;
 
 namespace Kaedei.AliyunDDNSClient
 {
