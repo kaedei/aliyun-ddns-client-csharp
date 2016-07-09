@@ -1,0 +1,4 @@
+﻿这一行填写Access Id Key，例如 DR2DPjKmg4ww0e79
+这一行填写Access Id Secret，例如 ysHnd1dhWvoOmbdWKx04evlVEdXEW7
+这一行填写域名，例如 google.com
+这一行填写子域名，例如 www
