@@ -53,9 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Kaedei.AliyunDDNSClient\config.txt">
+    <None Include="..\Kaedei.AliyunDDNSClient\config.txt">
       <Link>config.txt</Link>
-    </Content>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Kaedei.AliyunDDNSClient\App.config">
