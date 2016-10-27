@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+#if !NET35
 using System.Net.Http;
 using System.Net.Http.Headers;
+#endif
 using System.Text.RegularExpressions;
 using System.Threading;
 using Aliyun.Api;
@@ -34,12 +36,30 @@ namespace Kaedei.AliyunDDNSClient
 				Console.WriteLine("Domain record IP is " + updateRecord.Value);
 
 				//获取IP
+#if NET35
+				var ipRequest = (HttpWebRequest) WebRequest.Create("http://www.ip.cn/");
+				ipRequest.AutomaticDecompression = DecompressionMethods.None | DecompressionMethods.GZip |
+				                                 DecompressionMethods.Deflate;
+				ipRequest.UserAgent = "aliyun-ddns-client-csharp";
+				string htmlSource;
+				using (var ipResponse = ipRequest.GetResponse())
+				{
+					using (var responseStream = ipResponse.GetResponseStream())
+					{
+						using (var streamReader = new StreamReader(responseStream))
+						{
+							htmlSource = streamReader.ReadToEnd();
+						}
+					}
+				}
+#else
 				var httpClient = new HttpClient(new HttpClientHandler
 				{
 					AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.None,
 				});
 				httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("aliyun-ddns-client-csharp")));
 				var htmlSource = httpClient.GetStringAsync("http://www.ip.cn/").Result;
+#endif
 				var ip = Regex.Match(htmlSource, @"(?<=<code>)[\d\.]+(?=</code>)", RegexOptions.IgnoreCase).Value;
 				Console.WriteLine("Current IP is " + ip);
 
