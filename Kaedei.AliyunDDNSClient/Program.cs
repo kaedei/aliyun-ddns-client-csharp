@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -37,7 +38,7 @@ namespace Kaedei.AliyunDDNSClient
 
 				//获取IP
 #if NET35
-				var ipRequest = (HttpWebRequest) WebRequest.Create("http://www.ip.cn/");
+				var ipRequest = (HttpWebRequest) WebRequest.Create(ConfigurationManager.AppSettings["IpServer"]);
 				ipRequest.AutomaticDecompression = DecompressionMethods.None | DecompressionMethods.GZip |
 				                                 DecompressionMethods.Deflate;
 				ipRequest.UserAgent = "aliyun-ddns-client-csharp";
@@ -58,9 +59,9 @@ namespace Kaedei.AliyunDDNSClient
 					AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.None,
 				});
 				httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("aliyun-ddns-client-csharp")));
-				var htmlSource = httpClient.GetStringAsync("http://www.ip.cn/").Result;
+				var htmlSource = httpClient.GetStringAsync(ConfigurationManager.AppSettings["IpServer"]).Result;
 #endif
-				var ip = Regex.Match(htmlSource, @"(?<=<code>)[\d\.]+(?=</code>)", RegexOptions.IgnoreCase).Value;
+				var ip = Regex.Match(htmlSource, @"((?:(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))))", RegexOptions.IgnoreCase).Value;
 				Console.WriteLine("Current IP is " + ip);
 
 				if (updateRecord.Value != ip)
