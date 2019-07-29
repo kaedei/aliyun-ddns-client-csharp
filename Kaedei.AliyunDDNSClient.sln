@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaedei.AliyunDDNSClient", "Kaedei.AliyunDDNSClient\Kaedei.AliyunDDNSClient.csproj", "{7EE06B38-29B4-4883-882B-FE1CA0D59002}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kaedei.AliyunDDNSClient.NET35", "Kaedei.AliyunDDNSClient.NET35\Kaedei.AliyunDDNSClient.NET35.csproj", "{D522B06D-59AB-44B1-8137-CD88F1C7E37A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpService", "IpService\IpService.csproj", "{04D202A0-6BE9-44CC-BD4B-4523DECAA2F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{D522B06D-59AB-44B1-8137-CD88F1C7E37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D522B06D-59AB-44B1-8137-CD88F1C7E37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D522B06D-59AB-44B1-8137-CD88F1C7E37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D202A0-6BE9-44CC-BD4B-4523DECAA2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D202A0-6BE9-44CC-BD4B-4523DECAA2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D202A0-6BE9-44CC-BD4B-4523DECAA2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D202A0-6BE9-44CC-BD4B-4523DECAA2F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {242432B5-81D8-4F90-9BBF-3C88554A5F02}
 	EndGlobalSection
 EndGlobal
