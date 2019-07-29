@@ -14,7 +14,7 @@
 6. 在服务器上运行主exe即可
 
 # 获取公网IP的服务
-本程序依赖外部web服务来获取本机的公网IP地址，默认使用的公网IP地址查询服务来自于自建的`https://whatsmyip.chinacloudsites.cn/`。您可以在`App.config`文件中修改对应的网址。
+本程序依赖外部web服务来获取本机的公网IP地址，可以在`App.config`文件中修改公网IP地址查询服务的网址。
 
 # 环境 
 使用VS2013 + C#开发，支持.NET 3.5和.NET 4.5
